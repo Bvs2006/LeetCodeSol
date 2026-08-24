@@ -1,28 +1,24 @@
 class Solution {
 public:
     int countPrimes(int n) {
-        if (n <= 2) return 0;
+        if (n <= 2) return 0; // Handles n = 0, 1, 2 safely
+
+        vector<bool> p(n, true);
+        p[0] = false;
+        p[1] = false;
         
-        vector<char> p(n, 1);
-        p[0] = 0;
-        p[1] = 0;
-        
-        // Only loop up to sqrt(n)
-        for (int i = 3; i * i < n; i += 2) {
+        for (int i = 3; i * i < n; i+=2) {
             if (p[i]) {
-                // Start at i * i and skip even multiples by incrementing by 2 * i
-                for (int j = i * i; j < n; j += 2 * i) {
-                    p[j] = 0;
+                for(int j = i * i; j < n; j += 2 * i) {
+                    p[j] = false;
                 }
             }
         }
         
-        int c = 1; // Count 2 as a prime
-        // Count remaining primes, checking only odd numbers
+        int c = 1;
         for (int i = 3; i < n; i += 2) {
             if (p[i]) c++;
         }
-        
         return c;
     }
 };
