@@ -15,22 +15,22 @@ public:
         if(head->next==NULL||head->next->next==NULL){
             return {-1,-1};
         }
-        ListNode *pre=head;
+        int pre=head->val;
         head=head->next;
         int indx=0;
         while(head->next!=NULL){
             indx++;
-            if(head->val>pre->val&&head->next->val<head->val){
+            if(head->val>pre&&head->next->val<head->val){
                 res.push_back(indx);
             }
-            if(head->val<pre->val&&head->next->val>head->val){
+            if(head->val<pre&&head->next->val>head->val){
                 res.push_back(indx);
             }
-            pre=head;
+            pre=head->val;
             head=head->next;
         }
-        if (res.size() < 2) {
-            return {-1, -1};
+        if(res.size()<2){
+            return {-1,-1};
         }
         int minima=INT_MAX;
         for(int i=1;i<res.size();i++){
